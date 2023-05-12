@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/andreuperez/Restb.aiUPC/issues"
   },
-  "homepage": "https://github.com/andreuperez/Restb.aiUPC#readme"
+  "homepage": "https://github.com/andreuperez/Restb.aiUPC#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
