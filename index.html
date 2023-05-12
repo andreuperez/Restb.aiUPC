@@ -5,8 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <title>Restb.ai CHALLENGE</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <div>Hello World!</div>
+        <h1>Upload the images for processing</h1>
+    <div class="upload-form">
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label for="images">Select images to upload:</label>
+            <input type="file" id="images" name="images" accept="image/*" multiple required>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
     </body>
 </html>
