@@ -1,0 +1,19 @@
+{
+  "name": "restb.aiupc",
+  "version": "1.0.0",
+  "description": "Web application for predicting the price and many other things of a future house to be built",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreuperez/Restb.aiUPC.git"
+  },
+  "author": "The Solution",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreuperez/Restb.aiUPC/issues"
+  },
+  "homepage": "https://github.com/andreuperez/Restb.aiUPC#readme"
+}
