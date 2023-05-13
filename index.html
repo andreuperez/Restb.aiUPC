@@ -6,9 +6,12 @@
         
         <title>Restb.ai CHALLENGE</title>
         <link rel="stylesheet" href="style.css">
+        <script src="popup.js"></script>
     </head>
     <body>
+        
         <h1>Upload the images for processing</h1>
+
     <div class="upload-form">
         <form action="/upload" method="POST" enctype="multipart/form-data">
             <label for="images">Select images to upload:</label>
@@ -16,5 +19,16 @@
             <button type="submit">Upload</button>
         </form>
     </div>
+    <div id="message"></div>
+    <script>
+        // Update message on page load
+        window.onload = function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const message = urlParams.get('message');
+          if (message) {
+            document.getElementById('message').textContent = message;
+          }
+        };
+      </script>
     </body>
 </html>
