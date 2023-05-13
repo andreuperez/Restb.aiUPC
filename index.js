@@ -9,10 +9,10 @@ const bodyParser = require('body-parser');
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 5000;                  //Save the port number where your server will be listening
 const removal_mseconds = 10 * 1000;
+const SCRIPT_NAME = 'test.py';
 
 var results;
 var resultsDone = false;
-var resultPromise;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -111,7 +111,7 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    const pythonScript = spawn('python3', ['restb.aiAPI.py', formData, resizedImagesUris]);
+    const pythonScript = spawn('python3', [SCRIPT_NAME, formData, resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
       results = data.toString();
