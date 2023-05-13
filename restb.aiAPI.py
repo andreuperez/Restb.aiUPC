@@ -112,6 +112,9 @@ def main():
     global args
     print("--------------------------------------------------------")
     print("(LOG): Init restb.aiAPI.py")
+    print("--------------------------------------------------------")
+    print("(LOG): Parameters:")
+    print(sys.argv)
     args = sys.argv[5:]
     api()
     readJson()
