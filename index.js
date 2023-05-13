@@ -6,6 +6,7 @@ const sharp = require('sharp');
 
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 5000;                  //Save the port number where your server will be listening
+const removal_mseconds = 1 * 1000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -26,8 +27,8 @@ const storage = multer.diskStorage({
 // Initialize multer upload
 const upload = multer({
     storage: storage,
-    limits: { files: 5 } // Limiting to a maximum of 5 files
-  }).array('images', 5);
+    limits: { files: 10} // Limiting to a maximum of 5 files
+  }).array('images', 10);
   
 
 // Serve static files
@@ -80,7 +81,7 @@ app.post('/upload', upload, (req, res) => {
                       console.log(`Resized image deleted: ${outputPath}`);
                     }
                   });
-                }, 15 * 1000); // 5 minutes (converted to milliseconds)
+                }, removal_mseconds); // delete every mseconds
               }
             });
           }
@@ -88,7 +89,7 @@ app.post('/upload', upload, (req, res) => {
     });
 
     // Send the response with a success message
-    const message = 'Upload and processing completed successfully!';
+    const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 });
 

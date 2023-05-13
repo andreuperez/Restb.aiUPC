@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+html {
+  font-family: 'Roboto', sans-serif;
+}
 body {
   display: flex;
   align-items: center;
@@ -48,4 +52,37 @@ body {
 
   .upload-form button[type="submit"]:active {
     transform: scale(0.95);
+  }
+
+  #message-container {
+    text-align: center;
+  }
+
+  #message-container h2 {
+    margin-top: 0;
+  }
+
+  @keyframes loading-dots {
+    0% {
+      content: '.';
+      opacity: 0;
+    }
+    33% {
+      content: '..';
+      opacity: 1;
+    }
+    66% {
+      content: '...';
+      opacity: 1;
+    }
+    100% {
+      content: '.';
+      opacity: 0;
+    }
+  }
+  
+  .loading-dots {
+    font-size: 20px;
+    animation: loading-dots 1s infinite;
+    padding-bottom: 10px;
   }
