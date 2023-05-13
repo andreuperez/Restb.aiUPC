@@ -112,7 +112,7 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    const pythonScript = spawn('python3', [SCRIPT_NAME, formData, resizedImagesUris]);
+    const pythonScript = spawn('python3', [SCRIPT_NAME, city, neighborhood, region, quadraticMeters, resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
       results = data.toString();
