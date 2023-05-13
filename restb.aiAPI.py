@@ -100,7 +100,7 @@ def readJson():
 
 def main():
     global args
-    args = sys.argv[1:]
+    args = sys.argv[5:]
     api()
     readJson()
     jsonFormat()
