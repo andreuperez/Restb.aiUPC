@@ -17,22 +17,32 @@ body {
   .upload-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     max-width: 400px;
     margin: 0 auto;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .upload-form:hover {
+    transform: scale(1.05);
   }
   
   .upload-form label {
     margin-bottom: 10px;
+    text-align: center;
   }
   
   .upload-form input[type="file"] {
     padding: 10px;
     border: 2px solid #dddddd;
     border-radius: 5px;
+    text-align: center;
   }
   
   .upload-form button[type="submit"] {
@@ -43,6 +53,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    display: block; /* Display the button as a block element */
+    margin-left: auto; /* Move the button to the center horizontally */
+    margin-right: auto;
   }
   
   .upload-form button[type="submit"]:hover {
