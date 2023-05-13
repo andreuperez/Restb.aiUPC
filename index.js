@@ -95,10 +95,8 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    console.log(resizedImagesUris);
-
     var results;
-    const pythonScript = spawn('python', ['script.py', resizedImagesUris]);
+    const pythonScript = spawn('python3', ['restb.aiAPI.py', resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
       results = data;
@@ -106,7 +104,7 @@ app.post('/upload', upload, (req, res) => {
 
     pythonScript.on('close', (resultCode) => {
       if (resultCode == 0) {
-        res.send(results);
+        res.json(results);
         return;
       }
       res.sendStatus(100);
