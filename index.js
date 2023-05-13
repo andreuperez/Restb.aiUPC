@@ -3,10 +3,11 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
+const {spawn} = require('child_process');
 
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 5000;                  //Save the port number where your server will be listening
-const removal_mseconds = 1 * 1000;
+const removal_mseconds = 10 * 1000;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -45,11 +46,13 @@ app.post('/upload', upload, (req, res) => {
     }
 
     const resizedImages = [];
+    const resizedImagesUris = [];
 
     req.files.forEach((file) => {
       const filePath = file.path;
       const outputFileName = `${file.filename}`;
       const outputPath = `public/images/${outputFileName}`;
+      resizedImagesUris.push('/images/'+outputFileName);
 
       sharp(filePath)
         .resize(800, 600, {fit: 'inside'})
@@ -91,6 +94,25 @@ app.post('/upload', upload, (req, res) => {
     // Send the response with a success message
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
+
+    console.log(resizedImagesUris);
+
+    var results;
+    const pythonScript = spawn('python', ['script.py', resizedImagesUris]);
+    
+    pythonScript.stdout.on('data', function (data) {
+      results = data;
+    });
+
+    pythonScript.on('close', (resultCode) => {
+      if (resultCode == 0) {
+        res.send(results);
+        return;
+      }
+      res.sendStatus(100);
+    });
+
+    
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
