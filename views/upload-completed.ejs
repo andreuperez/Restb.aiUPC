@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Completed</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="upload-form">
+      <div id="message-container">
+        <h2>Upload Completed !!</h2>
+        <p><%= message %></p>
+        <div class="loading-dots">Loading...</div>
+        <iframe src="https://giphy.com/embed/zPbnEgxsPJOJSD3qfr" width="150" height="150" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jk-maru-marujon-zPbnEgxsPJOJSD3qfr"></a></p></div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+    <script>
+      const getResultInterval = setInterval(() => {
+        $.ajax({
+          url: '/get-result',
+          method: 'GET',
+          success: function (response) {
+            if (response.finished) {
+              window.location.href = '/results';
+              clearInterval(getResultInterval);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('AJAX failed: ', error);
+          }
+        });
+      }, 1000);
+    </script>
+  </body>
+</html>
