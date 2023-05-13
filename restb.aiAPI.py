@@ -68,36 +68,50 @@ def readJson():
     square_meters = sys.argv[4]
     try:
         bedrooms = json_response["response"]["solutions"]["roomtype"]["summary"]["count"]["room-bedroom"]
+        if(bedrooms == None):
+            bedrooms = 0
     except:
         bedrooms = 0
     
     try:
         bathrooms = json_response["response"]["solutions"]["roomtype"]["summary"]["count"]["bathroom"]
+        if(bathrooms == None):
+            bathrooms = 0
     except:
         bathrooms = 0
 
     try:
         property = json_response["response"]["solutions"]["r1r6"]["property"]["score"]
+        if(property == None):
+            property = 1
     except:
         property = 1
 
     try:
         kitchen = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["kitchen"]
+        if(kitchen == None):
+            kitchen = 1
     except:
         kitchen = 1
 
     try:
         bathroom_r1r6 = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["bathroom"]
+        if(bathroom_r1r6 == None):
+            bathroom_r1r6 = 1
     except:
         bathroom_r1r6 = 1
 
     try:
         bedrooms_r1r6 = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["bedrooms"]
+        if(bedrooms_r1r6 == None):
+            bedrooms_r1r6 = 1
     except:
         bedrooms_r1r6 = 1
     
     try:
         interior = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["interior"]
+        if(interior == None):
+            interior = 1
     except:
         interior = 1
 
