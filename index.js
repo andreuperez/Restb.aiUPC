@@ -8,8 +8,9 @@ const bodyParser = require('body-parser');
 
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 5000;                  //Save the port number where your server will be listening
-const removal_mseconds = 10 * 1000;
-const SCRIPT_NAME = 'test.py';
+const removal_mseconds = 30 * 1 * 1000;
+const SCRIPT_NAME = 'restb.aiAPI.py';
+const hostname = 'https://2d95-147-83-201-128.ngrok-free.app';
 
 var results;
 var resultsDone = false;
@@ -67,7 +68,7 @@ app.post('/upload', upload, (req, res) => {
       const filePath = file.path;
       const outputFileName = `${file.filename}`;
       const outputPath = `public/images/${outputFileName}`;
-      resizedImagesUris.push('/images/'+outputFileName);
+      resizedImagesUris.push(hostname+'/images/'+outputFileName);
 
       sharp(filePath)
         .resize(800, 600, {fit: 'inside'})
