@@ -56,7 +56,7 @@ def api():
     print("------------------")
     print(urls)
     '''
-    urls = list(sys.argv[5:])
+    urls = sys.argv[5].split(",")
     print(urls)
     request_body = {
     "image_urls": sys.argv[5:],
