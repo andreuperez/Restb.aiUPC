@@ -50,7 +50,7 @@ def api():
     'client_key': '2593c868c3e81326f28f6eab1c97191f70017da8908b0dec17d8e60cfc690e49'
     }
     request_body = {
-    "image_urls": ['https://www.minimalstudio.es/wp-content/uploads/2022/07/30minimal-pollensa-by-arturoandlauren.jpg'],
+    "image_urls": sys.argv[5:],
     "solutions": {"roomtype": 1.0, "roomtype_reso": 1.0, "style": 1.0, "r1r6": None, "c1c6": None, "features": 4.0, "features_reso": 1.0, "compliance": 2.0, "caption": None}
     }
     
@@ -113,6 +113,7 @@ def main():
     print("(LOG): Init restb.aiAPI.py")
     print("--------------------------------------------------------")
     print("(LOG): Parameters:")
+    print(sys.argv[5:])
     api()
     #readJson()
     #jsonFormat()
