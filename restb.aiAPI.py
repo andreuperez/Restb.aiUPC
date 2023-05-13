@@ -113,6 +113,7 @@ def main():
     print("(LOG): Init restb.aiAPI.py")
     print("--------------------------------------------------------")
     print("(LOG): Parameters:")
+    print(sys.argv)
     api()
     readJson()
     jsonFormat()
