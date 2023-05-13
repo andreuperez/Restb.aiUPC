@@ -8,11 +8,11 @@ const app = express();              //Instantiate an express app, the main work 
 const port = 5000;                  //Save the port number where your server will be listening
 
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
-    res.sendFile('index.html', {root: __dirname});      //server responds by sending the index.html file to the client's browser
-                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
+  res.render('upload');                                                        //the .sendFile method needs the absolute path to the file, see: https://expressjs.com/en/4x/api.html#res.sendFile 
 });
 
 // Configure multer storage
@@ -45,50 +45,51 @@ app.post('/upload', upload, (req, res) => {
 
     const resizedImages = [];
 
-  req.files.forEach((file) => {
-    const filePath = file.path;
-    const outputFileName = `${file.filename}`;
-    const outputPath = `public/images/${outputFileName}`;
+    req.files.forEach((file) => {
+      const filePath = file.path;
+      const outputFileName = `${file.filename}`;
+      const outputPath = `public/images/${outputFileName}`;
 
-    sharp(filePath)
-      .resize(800, 600, {fit: 'inside'})
-      .toFile(outputPath, (err) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send('Error resizing the image.');
-        } else {
-          const resizedImage = {
-            originalName: file.originalname,
-            resizedFileName: outputFileName,
-            resizedFilePath: outputPath
-          };
-          resizedImages.push(resizedImage);
+      sharp(filePath)
+        .resize(800, 600, {fit: 'inside'})
+        .toFile(outputPath, (err) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send('Error resizing the image.');
+          } else {
+            const resizedImage = {
+              originalName: file.originalname,
+              resizedFileName: outputFileName,
+              resizedFilePath: outputPath
+            };
+            resizedImages.push(resizedImage);
 
-          // Delete the original uploaded file
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.error(`Error deleting file: ${filePath}`, err);
-            } else {
-              console.log(`File deleted: ${filePath}`);
+            // Delete the original uploaded file
+            fs.unlink(filePath, (err) => {
+              if (err) {
+                console.error(`Error deleting file: ${filePath}`, err);
+              } else {
+                console.log(`File deleted: ${filePath}`);
 
-              // Schedule the removal of the resized image after 5 minutes
-              setTimeout(() => {
-                fs.unlink(outputPath, (err) => {
-                  if (err) {
-                    console.error(`Error deleting file: ${outputPath}`, err);
-                  } else {
-                    console.log(`Resized image deleted: ${outputPath}`);
-                  }
-                });
-              }, 15 * 1000); // 5 minutes (converted to milliseconds)
-            }
-          });
-        }
-      });
+                // Schedule the removal of the resized image after 5 minutes
+                setTimeout(() => {
+                  fs.unlink(outputPath, (err) => {
+                    if (err) {
+                      console.error(`Error deleting file: ${outputPath}`, err);
+                    } else {
+                      console.log(`Resized image deleted: ${outputPath}`);
+                    }
+                  });
+                }, 15 * 1000); // 5 minutes (converted to milliseconds)
+              }
+            });
+          }
+        });
     });
 
-    // DO THE API CALL AND PRESENT THE RESULTS
-
+    // Send the response with a success message
+    const message = 'Upload and processing completed successfully!';
+    res.render('upload-completed', { message });
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
