@@ -68,6 +68,7 @@ def readJson():
         if(bedrooms == None):
             bedrooms = 0
     except:
+        print("Fail Nº Bedrooms")
         bedrooms = 0
     
     try:
@@ -75,6 +76,7 @@ def readJson():
         if(bathrooms == None):
             bathrooms = 0
     except:
+        print("Fail Nº Bathrooms")
         bathrooms = 0
 
     try:
@@ -82,6 +84,7 @@ def readJson():
         if(property == None):
             property = 1
     except:
+        print("Fail R Property")
         property = 1
 
     try:
@@ -89,6 +92,7 @@ def readJson():
         if(kitchen == None):
             kitchen = 1
     except:
+        print("Fail R Kitchen")
         kitchen = 1
 
     try:
@@ -96,6 +100,7 @@ def readJson():
         if(bathroom_r1r6 == None):
             bathroom_r1r6 = 1
     except:
+        print("Fail R Bathrooms")
         bathroom_r1r6 = 1
 
     try:
@@ -103,6 +108,7 @@ def readJson():
         if(bedrooms_r1r6 == None):
             bedrooms_r1r6 = 1
     except:
+        print("Fail R Badroom")
         bedrooms_r1r6 = 1
     
     try:
@@ -110,6 +116,7 @@ def readJson():
         if(interior == None):
             interior = 1
     except:
+        print("Fail R Interior")
         interior = 1
 
 
