@@ -49,10 +49,14 @@ def api():
     # Add your client key
     'client_key': '2593c868c3e81326f28f6eab1c97191f70017da8908b0dec17d8e60cfc690e49'
     }
+    '''
     urls = []
     for url in sys.argv[5:]:
-        urls.append(url)
+        urls.append(url.toA)
     print("------------------")
+    print(urls)
+    '''
+    urls = list(sys.argv[5:])
     print(urls)
     request_body = {
     "image_urls": sys.argv[5:],
