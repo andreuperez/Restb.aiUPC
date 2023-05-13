@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const sharp = require('sharp');
 const {spawn} = require('child_process');
+const bodyParser = require('body-parser');
 
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 5000;                  //Save the port number where your server will be listening
@@ -15,6 +16,7 @@ var resultPromise;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+app.set(bodyParser.urlencoded({ extended: true }));
 
 //Idiomatic expression in express to route and respond to a client request
 app.get('/', (req, res) => {        //get requests to the root ("/") will route here
@@ -48,6 +50,15 @@ app.post('/upload', upload, (req, res) => {
       return;
 
     }
+
+    // Retrieve the form data
+    const city = req.body.city;
+    const neighborhood = req.body.neighborhood;
+    const region = req.body.region;
+    const quadraticMeters = req.body['quadratic-meters'];
+
+    const formData = [];
+    formData.push(city, neighborhood, region, quadraticMeters);
 
     const resizedImages = [];
     const resizedImagesUris = [];
@@ -100,7 +111,7 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    const pythonScript = spawn('python3', ['restb.aiAPI.py', resizedImagesUris]);
+    const pythonScript = spawn('python3', ['restb.aiAPI.py', formData, resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
       results = data.toString();
