@@ -1,6 +1,41 @@
-import requests
-import json
 import sys
+import json
+import requests
+
+city = ""
+neighborhood = ""
+region = ""
+square_meters = 0
+bedrooms = 0
+bathrooms = 0
+property = 1
+kitchen = 1
+bathroom_r1r6 = 1
+bedrooms_r1r6 = 1
+interior = 1
+
+def jsonFormat():
+    data = {
+        "city": city,
+        "neighborhood": neighborhood,
+        "region": region,
+        "square_meters": square_meters,
+        "bedrooms": bedrooms,
+        "bathrooms": bathrooms,
+        "image_data": {
+            "r1r6": {
+                "property": property,
+                "kitchen": kitchen,
+                "bathroom": bathroom_r1r6,
+                "interior": interior,
+                "bedrooms": bedrooms_r1r6
+            }
+        }
+    }
+
+    with open("datos.json", "w") as outfile:
+        json.dump(data, outfile)
+
 
 def api():
     global json_response
@@ -19,12 +54,58 @@ def api():
 
     # The response is formatted in JSON
     json_response = response.json()
-    print(json_response)
+
+
+def readJson():
+    global city, bedrooms_r1r6, neighborhood, region, square_meters, bedrooms, bathrooms, property, kitchen, bathroom_r1r6, interior
+    city = sys.argv[1]
+    neighborhood = sys.argv[2]
+    region = sys.argv[3]
+    square_meters = sys.argv[4]
+    try:
+        bedrooms = json_response["response"]["solutions"]["roomtype"]["summary"]["count"]["room-bedroom"]
+    except:
+        bedrooms = 0
     
+    try:
+        bathrooms = json_response["response"]["solutions"]["roomtype"]["summary"]["count"]["bathroom"]
+    except:
+        bathrooms = 0
+
+    try:
+        property = json_response["response"]["solutions"]["r1r6"]["property"]["score"]
+    except:
+        property = 1
+
+    try:
+        kitchen = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["kitchen"]
+    except:
+        kitchen = 1
+
+    try:
+        bathroom_r1r6 = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["bathroom"]
+    except:
+        bathroom_r1r6 = 1
+
+    try:
+        bedrooms_r1r6 = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["bedrooms"]
+    except:
+        bedrooms_r1r6 = 1
+    
+    try:
+        interior = json_response["response"]["solutions"]["r1r6"]["summary"]["score"]["interior"]
+    except:
+        interior = 1
+
+
 def main():
     global args
     args = sys.argv[1:]
     api()
+    readJson()
+    jsonFormat()
+
 
 if __name__ == '__main__':
     main()
+
