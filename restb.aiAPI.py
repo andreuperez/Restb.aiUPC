@@ -32,6 +32,9 @@ def jsonFormat():
             }
         }
     }
+    print("--------------------------------------------------------")
+    print("(LOG): DATA:")
+    print(data)
 
     with open("datos.json", "w") as outfile:
         json.dump(data, outfile)
@@ -59,7 +62,8 @@ def api():
     # The response is formatted in JSON
     json_response = response.json()
     print("--------------------------------------------------------")
-    print("(LOG): API answer recived")
+    print("(LOG): API answer recived:")
+    print(json_response)
 
 
 def readJson():
