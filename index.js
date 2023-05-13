@@ -9,6 +9,10 @@ const app = express();              //Instantiate an express app, the main work 
 const port = 5000;                  //Save the port number where your server will be listening
 const removal_mseconds = 10 * 1000;
 
+var results;
+var resultsDone = false;
+var resultPromise;
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -60,6 +64,7 @@ app.post('/upload', upload, (req, res) => {
           if (err) {
             console.error(err);
             res.status(500).send('Error resizing the image.');
+            return;
           } else {
             const resizedImage = {
               originalName: file.originalname,
@@ -95,22 +100,24 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    var results;
     const pythonScript = spawn('python3', ['restb.aiAPI.py', resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
-      results = data;
+      results = data.toString();
     });
 
     pythonScript.on('close', (resultCode) => {
-      if (resultCode == 0) {
-        res.json(results);
-        return;
-      }
-      res.sendStatus(100);
+      resultsDone = true;
     });
-
     
+});
+
+app.get('/get-result', (req, res) => {
+  res.json({finished: resultsDone});
+});
+
+app.get('/results', (req, res) => {
+  res.render('results', { results });
 });
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}

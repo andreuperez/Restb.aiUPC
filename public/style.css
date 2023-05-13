@@ -13,8 +13,7 @@ body {
   background-position: center;
   backdrop-filter: blur(5px); /* Apply a blur effect */
   -webkit-backdrop-filter: blur(5px); /* For Safari */
-}
-  
+}  
   .upload-form {
     display: flex;
     flex-direction: column;
@@ -60,6 +59,10 @@ body {
 
   #message-container h2 {
     margin-top: 0;
+  }
+
+  #result-container {
+    text-align: center;
   }
 
   @keyframes loading-dots {
