@@ -46,7 +46,8 @@ body {
   }
   
   .upload-form button[type="submit"] {
-    padding: 10px 20px;
+    padding: 15px 25px;
+    font-size: 20px;
     margin-top: 10px;
     background-color: #4CAF50;
     color: #ffffff;
@@ -78,8 +79,9 @@ body {
     text-align: center;
   }
 
-  #result-container p {
+  #result-container p[id="price"] {
     text-align: center;
+    font-style: bold;
     color: #4CAF50;
     font-size: 40px;
     position: relative;
