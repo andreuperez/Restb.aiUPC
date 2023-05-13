@@ -53,13 +53,8 @@ app.post('/upload', upload, (req, res) => {
     }
 
     // Retrieve the form data
-    const city = req.body.city;
-    const neighborhood = req.body.neighborhood;
-    const region = req.body.region;
+    const postalCode = req.body['postal-code'];
     const squareMeters = req.body['square-meters'];
-
-    const formData = [];
-    formData.push(city, neighborhood, region, squareMeters);
 
     const resizedImages = [];
     const resizedImagesUris = [];
@@ -112,7 +107,7 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    const pythonScript = spawn('python3', [SCRIPT_NAME, city, neighborhood, region, squareMeters, resizedImagesUris]);
+    const pythonScript = spawn('python3', [SCRIPT_NAME, postalCode, squareMeters, resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
       results = data.toString();
