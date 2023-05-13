@@ -1,5 +1,6 @@
 import sys
 import json
+import joblib
 import requests
 
 city = ""
@@ -68,7 +69,6 @@ def readJson():
         if(bedrooms == None):
             bedrooms = 0
     except:
-        print("Fail Nº Bedrooms")
         bedrooms = 0
     
     try:
@@ -76,7 +76,6 @@ def readJson():
         if(bathrooms == None):
             bathrooms = 0
     except:
-        print("Fail Nº Bathrooms")
         bathrooms = 0
 
     try:
@@ -84,7 +83,6 @@ def readJson():
         if(property == None):
             property = 1
     except:
-        print("Fail R Property")
         property = 1
 
     try:
@@ -92,7 +90,6 @@ def readJson():
         if(kitchen == None):
             kitchen = 1
     except:
-        print("Fail R Kitchen")
         kitchen = 1
 
     try:
@@ -100,7 +97,6 @@ def readJson():
         if(bathroom_r1r6 == None):
             bathroom_r1r6 = 1
     except:
-        print("Fail R Bathrooms")
         bathroom_r1r6 = 1
 
     try:
@@ -108,7 +104,6 @@ def readJson():
         if(bedrooms_r1r6 == None):
             bedrooms_r1r6 = 1
     except:
-        print("Fail R Badroom")
         bedrooms_r1r6 = 1
     
     try:
@@ -116,14 +111,34 @@ def readJson():
         if(interior == None):
             interior = 1
     except:
-        print("Fail R Interior")
         interior = 1
 
+
+def formatJoblib():
+    modelo = joblib.load('random_forest.joblib')
+
+    # Cargar los datos de entrada desde un archivo JSON
+    with open('datos.json', 'r') as archivo_json:
+        datos = json.load(archivo_json)
+
+    # Preprocesar los datos si es necesario
+    # ...
+
+    # Aplicar el modelo a los datos
+    resultados = modelo.predict(datos)
+
+    # Procesar los resultados si es necesario
+    # ...
+
+    # Guardar los resultados en un archivo de salida
+    with open('resultados.json', 'w') as archivo_salida:
+        json.dump(resultados, archivo_salida)
 
 def main():
     api()
     readJson()
     jsonFormat()
+    formatJoblib()
 
 
 if __name__ == '__main__':
