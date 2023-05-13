@@ -87,8 +87,7 @@ app.post('/upload', upload, (req, res) => {
       });
     });
 
-    // Send success response with message
-    res.redirect('/index.html?message=Image uploaded successfully!');
+    // DO THE API CALL AND PRESENT THE RESULTS
 
 });
 
