@@ -49,8 +49,10 @@ def api():
     # Add your client key
     'client_key': '2593c868c3e81326f28f6eab1c97191f70017da8908b0dec17d8e60cfc690e49'
     }
+    for url in sys.argv[5:]:
+        urls += url
     print("------------------")
-    print(sys.argv[5:])
+    print(urls)
     request_body = {
     "image_urls": sys.argv[5:],
     "solutions": {"roomtype": 1.0, "roomtype_reso": 1.0, "style": 1.0, "r1r6": None, "c1c6": None, "features": 4.0, "features_reso": 1.0, "compliance": 2.0, "caption": None}
