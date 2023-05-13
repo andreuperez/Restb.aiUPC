@@ -65,6 +65,27 @@ body {
     text-align: center;
   }
 
+  #result-container p {
+    text-align: center;
+    color: #4CAF50;
+    font-size: 40px;
+    position: relative;
+    display: inline-block;
+    animation: moveText 5s infinite;
+  }
+
+  @keyframes moveText {
+    0% {
+        transform: translateX(-5px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(-5px);
+    }
+}
+
   @keyframes loading-dots {
     0% {
       content: '.';
