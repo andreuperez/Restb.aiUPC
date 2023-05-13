@@ -21,13 +21,10 @@ def api():
     json_response = response.json()
     print(json_response)
     
-
 def main():
-    global args 
+    global args
     args = sys.argv[1:]
     api()
-
-
 
 if __name__ == '__main__':
     main()
