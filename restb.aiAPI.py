@@ -32,17 +32,13 @@ def jsonFormat():
             }
         }
     }
-    print("--------------------------------------------------------")
-    print("(LOG): DATA:")
-    print(data)
+    #print(data)
 
     with open("datos.json", "w") as outfile:
         json.dump(data, outfile)
 
 
-def api():        
-    print("--------------------------------------------------------")
-    print("(LOG): Init API call")
+def api():
     global json_response
     url = 'https://property.restb.ai/v1/multianalyze'
     payload = {
@@ -50,6 +46,7 @@ def api():
     'client_key': '2593c868c3e81326f28f6eab1c97191f70017da8908b0dec17d8e60cfc690e49'
     }
     urls = sys.argv[5].split(",")
+    print(urls)
     request_body = {
     "image_urls": urls,
     "solutions": {"roomtype": 1.0, "roomtype_reso": 1.0, "style": 1.0, "r1r6": None, "c1c6": None, "features": 4.0, "features_reso": 1.0, "compliance": 2.0, "caption": None}
@@ -57,14 +54,10 @@ def api():
     
     # Make the classify request
     response = requests.post(url, params=payload, json=request_body)
-    print("--------------------------------------------------------")
-    print("(LOG): Waiting API answer")
-
+   
     # The response is formatted in JSON
     json_response = response.json()
-    print("--------------------------------------------------------")
-    print("(LOG): API answer recived:")
-    print(json_response)
+    #print(json_response)
 
 
 def readJson():
@@ -114,7 +107,6 @@ def main():
     print("(LOG): Init restb.aiAPI.py")
     print("--------------------------------------------------------")
     print("(LOG): Parameters:")
-    print(sys.argv)
     api()
     readJson()
     jsonFormat()
