@@ -8,7 +8,7 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background-image: url('wallpaper.jpg');
+  background-color: rgba(236, 151, 62, 0.8);
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(5px); /* Apply a blur effect */
@@ -49,7 +49,7 @@ body {
     padding: 15px 25px;
     font-size: 20px;
     margin-top: 10px;
-    background-color: #4CAF50;
+    background-color: #ec973e;
     color: #ffffff;
     border: none;
     border-radius: 5px;
@@ -60,7 +60,7 @@ body {
   }
   
   .upload-form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #c98032;
   }
 
   .upload-form button[type="submit"]:active {
