@@ -64,7 +64,7 @@ body {
   }
 
   .upload-form button[type="submit"]:active {
-    transform: scale(0.95);
+    transform: scale(0.95) skew(10deg, -5deg);
   }
 
   #message-container {
