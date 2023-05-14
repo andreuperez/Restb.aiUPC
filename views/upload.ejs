@@ -8,35 +8,41 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 8px;
+        }
+    </style>
     <div class="upload-form">
         <form action="/upload" method="POST" enctype="multipart/form-data">
-            <label for="images">Select images to upload:</label>
-            <input type="file" id="images" name="images" accept="image/*" multiple required>
+            
+            <ul>
+                <li>
+                    <label for="images">Select images to upload:</label>
+                    <input type="file" id="images" name="images" accept="image/*" multiple required>
+                </li>
 
-            <label for="city">City:</label>
-            <select id="city" name="city" required>
-                <option value="Burgos">Burgos</option>
-                <option value="Barcelona">Barcelona</option>
-                <option value="Madrid">Madrid</option>
-            </select>
+                <li>
+                    <label for="postal-code">Postal code:</label>
+                    <input type="number" id="postal-code" name="postal-code" required>
+                </li>
+                <li>
+                    <label for="square-meters">Square Meters:</label>
+                    <input type="number" id="square-meters" name="square-meters" required>
+                </li>
+            </ul>
 
-            <label for="neighborhood">Neighborhood:</label>
-            <select id="neighborhood" name="neighborhood" required>
-                <option value="La Mina">La Mina</option>
-                <option value="Pedralbes">Pedralbes</option>
-                <option value="Gràcia">Gràcia</option>
-            </select>
-
-            <label for="region">Region:</label>
-            <select id="region" name="region" required>
-                <option value="reg1">reg1</option>
-                <option value="reg2">reg2</option>
-                <option value="reg3">reg3</option>
-            </select>
-
-            <label for="quadratic-meters">Quadratic Meters:</label>
-            <input type="number" id="quadratic-meters" name="quadratic-meters" required>
-    
             <button type="submit">Upload</button>
         </form>
     </div>

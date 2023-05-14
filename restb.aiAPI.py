@@ -2,10 +2,9 @@ import sys
 import json
 import joblib
 import requests
+import pandas as pd
 
-city = ""
-neighborhood = ""
-region = ""
+city = 0
 square_meters = 0
 bedrooms = 0
 bathrooms = 0
@@ -18,8 +17,6 @@ interior = 1
 def jsonFormat():
     data = {
         "city": city,
-        "neighborhood": neighborhood,
-        "region": region,
         "square_meters": square_meters,
         "bedrooms": bedrooms,
         "bathrooms": bathrooms,
@@ -45,7 +42,7 @@ def api():
     # Add your client key
     'client_key': '2593c868c3e81326f28f6eab1c97191f70017da8908b0dec17d8e60cfc690e49'
     }
-    urls = sys.argv[5].split(",")
+    urls = sys.argv[3].split(",")
     request_body = {
     "image_urls": urls,
     "solutions": {"roomtype": 1.0, "roomtype_reso": 1.0, "style": 1.0, "r1r6": None, "c1c6": None, "features": 4.0, "features_reso": 1.0, "compliance": 2.0, "caption": None}
@@ -61,9 +58,7 @@ def api():
 def readJson():
     global city, bedrooms_r1r6, neighborhood, region, square_meters, bedrooms, bathrooms, property, kitchen, bathroom_r1r6, interior
     city = sys.argv[1]
-    neighborhood = sys.argv[2]
-    region = sys.argv[3]
-    square_meters = sys.argv[4]
+    square_meters = sys.argv[2]
     try:
         bedrooms = json_response["response"]["solutions"]["roomtype"]["summary"]["count"]["room-bedroom"]
         if(bedrooms == None):
@@ -115,30 +110,47 @@ def readJson():
 
 
 def formatJoblib():
-    modelo = joblib.load('random_forest.joblib')
+    modelo = joblib.load('random_forest_v2.joblib')
 
     # Cargar los datos de entrada desde un archivo JSON
     with open('datos.json', 'r') as archivo_json:
         datos = json.load(archivo_json)
+    
+    df = pd.DataFrame(columns=['square_meters', 'bedrooms', 'bathrooms','property_rating', 'kitchen_rating', 'bathroom_rating', 'interior_rating', 'zipcode'])
+
+    property_dict = {}
+    property_dict['square_meters'] = datos['square_meters']
+    property_dict['bedrooms'] = datos['bedrooms']
+    property_dict['bathrooms'] = datos['bathrooms']
+    property_dict['property_rating'] = datos['image_data']['r1r6']['property'] 
+    property_dict['kitchen_rating'] = datos['image_data']['r1r6']['kitchen'] 
+    property_dict['bathroom_rating'] = datos['image_data']['r1r6']['bathroom']
+    property_dict['interior_rating'] = datos['image_data']['r1r6']['interior']
+    property_dict['zipcode'] = datos['city']
+
+    df = df._append(property_dict, ignore_index=True)
 
     # Preprocesar los datos si es necesario
     # ...
 
     # Aplicar el modelo a los datos
-    resultados = modelo.predict(datos)
+    resultados = modelo.predict(df)
 
     # Procesar los resultados si es necesario
     # ...
 
     # Guardar los resultados en un archivo de salida
-    with open('resultados.json', 'w') as archivo_salida:
-        json.dump(resultados, archivo_salida)
+    print(str(resultados[0]).split(".")[0]+" €")
 
 def main():
-    api()
-    readJson()
-    jsonFormat()
-    formatJoblib()
+    try:
+        api()
+        readJson()
+        jsonFormat()
+        formatJoblib()
+    except Exception as e:
+        print(e)
+    
 
 
 if __name__ == '__main__':

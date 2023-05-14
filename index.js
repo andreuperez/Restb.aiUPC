@@ -10,7 +10,7 @@ const app = express();              //Instantiate an express app, the main work 
 const port = 5000;                  //Save the port number where your server will be listening
 const removal_mseconds = 30 * 1 * 1000;
 const SCRIPT_NAME = 'restb.aiAPI.py';
-const hostname = 'https://2d95-147-83-201-128.ngrok-free.app';
+const hostname = 'https://600c-147-83-201-134.ngrok-free.app';
 
 var results;
 var resultsDone = false;
@@ -53,13 +53,8 @@ app.post('/upload', upload, (req, res) => {
     }
 
     // Retrieve the form data
-    const city = req.body.city;
-    const neighborhood = req.body.neighborhood;
-    const region = req.body.region;
-    const quadraticMeters = req.body['quadratic-meters'];
-
-    const formData = [];
-    formData.push(city, neighborhood, region, quadraticMeters);
+    const postalCode = req.body['postal-code'];
+    const squareMeters = req.body['square-meters'];
 
     const resizedImages = [];
     const resizedImagesUris = [];
@@ -112,7 +107,7 @@ app.post('/upload', upload, (req, res) => {
     const message = 'Now the images are being processed by our AI';
     res.render('upload-completed', { message });
 
-    const pythonScript = spawn('python3', [SCRIPT_NAME, city, neighborhood, region, quadraticMeters, resizedImagesUris]);
+    const pythonScript = spawn('python3', [SCRIPT_NAME, postalCode, squareMeters, resizedImagesUris]);
     
     pythonScript.stdout.on('data', function (data) {
       results = data.toString();

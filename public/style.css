@@ -8,7 +8,7 @@ body {
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background-image: url('wallpaper.jpg');
+  background-color: rgba(236, 151, 62, 0.8);
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(5px); /* Apply a blur effect */
@@ -17,40 +17,54 @@ body {
   .upload-form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     max-width: 400px;
     margin: 0 auto;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+  }
+
+  .upload-form:hover {
+    transform: scale(1.05);
   }
   
   .upload-form label {
     margin-bottom: 10px;
+    text-align: center;
   }
   
   .upload-form input[type="file"] {
     padding: 10px;
     border: 2px solid #dddddd;
     border-radius: 5px;
+    text-align: center;
   }
   
   .upload-form button[type="submit"] {
-    padding: 10px 20px;
+    padding: 13px 23px;
+    font-size: 20px;
     margin-top: 10px;
-    background-color: #4CAF50;
+    background-color: #ec973e;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    display: block; /* Display the button as a block element */
+    margin-left: auto; /* Move the button to the center horizontally */
+    margin-right: auto;
   }
   
   .upload-form button[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #c98032;
   }
 
   .upload-form button[type="submit"]:active {
-    transform: scale(0.95);
+    transform: scale(0.95) skew(10deg, -5deg);
   }
 
   #message-container {
@@ -65,8 +79,9 @@ body {
     text-align: center;
   }
 
-  #result-container p {
+  #result-container p[id="price"] {
     text-align: center;
+    font-style: bold;
     color: #4CAF50;
     font-size: 40px;
     position: relative;
