@@ -140,7 +140,7 @@ def formatJoblib():
     # ...
 
     # Guardar los resultados en un archivo de salida
-    print(str(resultados[0])+" €")
+    print(str(resultados[0]).split(".")[0]+" €")
 
 def main():
     try:
