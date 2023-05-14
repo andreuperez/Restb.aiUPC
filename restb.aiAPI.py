@@ -5,8 +5,6 @@ import requests
 import pandas as pd
 
 city = 0
-neighborhood = ""
-region = ""
 square_meters = 0
 bedrooms = 0
 bathrooms = 0
@@ -19,8 +17,6 @@ interior = 1
 def jsonFormat():
     data = {
         "city": city,
-        "neighborhood": neighborhood,
-        "region": region,
         "square_meters": square_meters,
         "bedrooms": bedrooms,
         "bathrooms": bathrooms,
