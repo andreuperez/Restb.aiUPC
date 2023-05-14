@@ -63,9 +63,9 @@ def cmd_start(message):
 
     # Imprimir la salida
     price = out.decode("utf-8")
-
     text_html = '<b>' + price + '</b>' 
     bot.send_message(id, text_html, parse_mode="html", disable_web_page_preview=True)
+    names = []
 
     
     
