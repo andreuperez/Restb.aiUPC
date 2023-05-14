@@ -140,13 +140,17 @@ def formatJoblib():
     # ...
 
     # Guardar los resultados en un archivo de salida
-    print(resultados[0])
+    print(str(resultados[0])+" €")
 
 def main():
-    api()
-    readJson()
-    jsonFormat()
-    formatJoblib()
+    try:
+        api()
+        readJson()
+        jsonFormat()
+        formatJoblib()
+    except Exception as e:
+        print(e)
+    
 
 
 if __name__ == '__main__':

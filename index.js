@@ -10,7 +10,7 @@ const app = express();              //Instantiate an express app, the main work 
 const port = 5000;                  //Save the port number where your server will be listening
 const removal_mseconds = 30 * 1 * 1000;
 const SCRIPT_NAME = 'restb.aiAPI.py';
-const hostname = 'https://2d95-147-83-201-128.ngrok-free.app';
+const hostname = 'https://600c-147-83-201-134.ngrok-free.app';
 
 var results;
 var resultsDone = false;
